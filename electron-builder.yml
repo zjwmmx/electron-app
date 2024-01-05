@@ -38,9 +38,9 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  provider: generic
-  url: https://github.com/zjwmmx/electron-app/releases
-  # provider: github
-  # owner: zjwmmx
-  # repo: electron-app
+  # provider: generic
+  # url: https://github.com/zjwmmx/electron-app/releases
+  provider: github
+  owner: zjwmmx
+  repo: electron-app
   # token: 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
