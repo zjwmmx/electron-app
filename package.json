@@ -41,14 +41,5 @@
     "prettier": "^3.0.2",
     "vite": "^4.4.9",
     "vue": "^3.3.4"
-  },
-  "build": {
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "iffy",
-        "repo": "electron-updater-example"
-      }
-    ]
   }
 }
