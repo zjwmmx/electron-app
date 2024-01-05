@@ -6,7 +6,7 @@ import { autoUpdater } from 'electron-updater'
 // autoUpdater.logger = log
 
 autoUpdater.autoDownload = false
-autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases/tag/untagged-be1e3cbcda4a79c8433c')
+autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
 
 autoUpdater.on('error', (error) => {
   console.log('验证更新')
