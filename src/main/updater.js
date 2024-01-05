@@ -8,6 +8,7 @@ import { autoUpdater } from 'electron-updater'
 autoUpdater.autoDownload = false
 
 autoUpdater.on('error', (error) => {
+  console.log('验证更新')
   dialog.showErrorBox('Error: ', error == null ? 'unknown' : (error.stack || error).toString())
 })
 
