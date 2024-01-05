@@ -39,5 +39,4 @@ appImage:
 npmRebuild: false
 publish:
   provider: generic
-  owner: 'zjwmmx',
-  repo: 'electron-app',
+  url: https://github.com/zjwmmx/electron-app/releases/tag/untagged-be1e3cbcda4a79c8433c
