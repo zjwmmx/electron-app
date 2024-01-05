@@ -38,9 +38,7 @@ appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
 publish:
-  # provider: generic
-  # url: https://github.com/zjwmmx/electron-app/releases/tag/untagged-be1e3cbcda4a79c8433c
   provider: github
   owner: zjwmmx
   repo: electron-app
-  token: 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
+  token: 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
