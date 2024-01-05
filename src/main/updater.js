@@ -6,7 +6,14 @@ import { autoUpdater } from 'electron-updater'
 // autoUpdater.logger = log
 
 autoUpdater.autoDownload = false
-autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
+// autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
+autoUpdater.setFeedURL({
+  provider: "github",
+  owner: "zjwmmx",
+  repo: "electron-app",
+  token: "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"
+})
+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
 
 autoUpdater.on('error', (error) => {
   console.log('验证更新')
