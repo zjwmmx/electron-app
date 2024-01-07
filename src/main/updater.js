@@ -6,15 +6,15 @@ import { autoUpdater } from 'electron-updater'
 // autoUpdater.logger = log
 
 autoUpdater.autoDownload = false
-// autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
-autoUpdater.setFeedURL({
-  // url: 'https://github.com/zjwmmx/electron-app/releases',
-  provider: "github",
-  owner: "zjwmmx",
-  repo: "electron-app",
-  releaseType: "release",
-  // token: "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"
-})
+autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
+// autoUpdater.setFeedURL({
+//   url: 'https://github.com/zjwmmx/electron-app/releases',
+//   provider: "github",
+//   owner: "zjwmmx",
+//   repo: "electron-app",
+//   releaseType: "release",
+//   token: "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"
+// })
 
 autoUpdater.on('error', (error) => {
   console.log('验证更新')
