@@ -27,7 +27,7 @@ jobs:
       - name: Build Electron package
         run: npm run build
         env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
   release:
     needs: build
@@ -40,7 +40,7 @@ jobs:
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         run: gh release edit ${{ github.ref_name }} --draft=false
         env:
-          GH_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
     # - name: Create release
     #   uses: softprops/action-gh-release@v1

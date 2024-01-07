@@ -6,7 +6,7 @@ import { autoUpdater } from 'electron-updater'
 // autoUpdater.logger = log
 
 autoUpdater.autoDownload = false
-autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
+// autoUpdater.setFeedURL('https://github.com/zjwmmx/electron-app/releases')
 // autoUpdater.setFeedURL({
 //   url: 'https://github.com/zjwmmx/electron-app/releases',
 //   provider: "github",
