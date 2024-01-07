@@ -11,6 +11,7 @@ autoUpdater.setFeedURL({
   provider: "github",
   owner: "zjwmmx",
   repo: "electron-app",
+  releaseType: "release",
   token: "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"
 })
 
