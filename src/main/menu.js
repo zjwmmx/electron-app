@@ -25,7 +25,7 @@ export function buildMenu(mainWindow, ipcMain) {
           label: '检查更新',
           click: () => {
             // 处理打开菜单项的点击事件
-            checkForUpdates()
+            checkForUpdates(mainWindow, ipcMain)
           }
         },
         {

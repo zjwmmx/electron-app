@@ -42,8 +42,8 @@ function createWindow() {
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
     // 开发环境，加载开发服务器的URL
     // 可以是远程地址，且不会有跨域影响
-    mainWindow.loadURL('https://im-app.qa.lightai.cn/')
-    // mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    // mainWindow.loadURL('https://im-app.qa.lightai.cn/')
+    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
     // 否则加载本地的index.html文件
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
