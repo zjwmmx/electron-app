@@ -1,13 +1,14 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import style from './style.module.scss'
 import { useRoute, useRouter } from 'vue-router'
+import { Button } from 'ant-design-vue'
 
 const Home = defineComponent({
   name: 'Home',
   setup: () => {
     const route = useRoute()
     const router = useRouter()
-    const test = ref('defrer')
+    const test = ref('修改title')
     const sendMain = () => {
       // 向主线程发送消息
       window.api.setTitle('你是猪吗')
@@ -25,14 +26,13 @@ const Home = defineComponent({
         console.log(router)
         router.go(0)
       })
-      setTimeout(() => {
-        test.value = '123'
-      }, 3000)
     })
     return () => {
       return (
         <div class={style.wrap}>
-          <button onClick={sendMain}>{test.value}</button>
+          <Button type={'primary'} onClick={sendMain}>
+            {test.value}
+          </Button>
         </div>
       )
     }

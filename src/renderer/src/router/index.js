@@ -1,14 +1,13 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-import MainLayout from '../components/base-layout'
-// import _ from 'lodash'
+import BaseLayout from '../layout/base-layout'
 
 export const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     {
       path: '',
-      component: MainLayout,
+      component: BaseLayout,
       redirect: '/home',
       children: [
         {

@@ -1,6 +1,6 @@
 {
   "name": "electron-demo",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "An Electron application with Vue",
   "main": "./out/main/index.js",
   "author": "example.com",
@@ -21,8 +21,10 @@
     "@electron-toolkit/utils": "^2.0.0",
     "ant-design-vue": "^4.1.0",
     "electron-log": "^5.0.3",
+    "electron-store": "^8.1.0",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "pinia": "^2.1.7",
     "sass": "^1.69.6",
     "vue-router": "^4.2.5"
