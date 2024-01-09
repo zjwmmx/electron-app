@@ -2,6 +2,7 @@ import { defineComponent, onMounted, ref } from 'vue'
 import style from './style.module.scss'
 import { useRoute, useRouter } from 'vue-router'
 import { Button } from 'ant-design-vue'
+import localforage from 'localforage'
 
 const Home = defineComponent({
   name: 'Home',
@@ -22,8 +23,18 @@ const Home = defineComponent({
       window.api.createWindow()
     }
 
+    function setLocalStorage() {
+      localStorage.setItem('test', '123')
+    }
+
+    function setLocalForage() {
+      localforage.setItem('test3333', '333333333333333333333')
+    }
+
     onMounted(() => {
       console.log('渲染进程挂载')
+      console.log('test', localStorage.getItem('test'))
+      console.log('test3333', localforage.getItem('test'))
       // window.api.getTitle()
       window.api.onMainMessage((msg) => {
         console.log(msg)
@@ -40,6 +51,12 @@ const Home = defineComponent({
           </Button>
           <Button type={'primary'} onClick={createWindow}>
             打开新窗口
+          </Button>
+          <Button type={'primary'} onClick={setLocalStorage}>
+            设置本地缓存
+          </Button>
+          <Button type={'primary'} onClick={setLocalForage}>
+            设置本地缓存localForage
           </Button>
         </div>
       )
