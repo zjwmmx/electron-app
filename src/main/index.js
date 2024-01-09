@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, globalShortcut } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { buildMenu } from './menu'
@@ -19,12 +19,6 @@ function createWindow() {
       webSecurity: false
     }
   })
-
-  console.log(import.meta.env)
-  // 打开调试工具
-  if (is.dev) {
-    mainWindow.webContents.openDevTools()
-  }
 
   mainWindow.on('ready-to-show', () => {
     mainWindow.show()
@@ -50,6 +44,12 @@ function createWindow() {
     mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
 
+  // 注册快捷键
+  globalShortcut.register('CommandOrControl+Shift+I', () => {
+    // 打开控制台
+    mainWindow.webContents.openDevTools({ mode: 'right' })
+  })
+
   buildMenu(mainWindow, ipcMain)
 }
 
@@ -74,4 +74,8 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
   }
+})
+
+ipcMain.on('createWindow', () => {
+  createWindow()
 })

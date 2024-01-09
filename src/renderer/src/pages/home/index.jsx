@@ -9,7 +9,7 @@ const Home = defineComponent({
     const route = useRoute()
     const router = useRouter()
     const test = ref('修改title')
-    const sendMain = () => {
+    function sendMain() {
       // 向主线程发送消息
       window.api.setTitle('你是猪吗')
       // window.api.getTitle('你是猪吗')
@@ -17,6 +17,11 @@ const Home = defineComponent({
       // const data = window.electron.ipcRenderer.sendSync('asynchronous-message', 'pongsss')
       // console.log(data)
     }
+
+    function createWindow() {
+      window.api.createWindow()
+    }
+
     onMounted(() => {
       console.log('渲染进程挂载')
       // window.api.getTitle()
@@ -32,6 +37,9 @@ const Home = defineComponent({
         <div class={style.wrap}>
           <Button type={'primary'} onClick={sendMain}>
             {test.value}
+          </Button>
+          <Button type={'primary'} onClick={createWindow}>
+            打开新窗口
           </Button>
         </div>
       )
