@@ -21,10 +21,16 @@ function createLoginWindow() {
   })
 
   if (!app.isPackaged && process.env['ELECTRON_RENDERER_URL']) {
-    loginWindow.loadURL(`${process.env['ELECTRON_RENDERER_URL']}#/login`)
+    loginWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    loginWindow.loadFile(join(__dirname, '../renderer/index.html/#/login'))
+    loginWindow.loadFile(join(__dirname, '../renderer/index.html'))
   }
+
+  // 加载 /login 路由
+  loginWindow.webContents.on('did-finish-load', () => {
+    console.log('finish')
+    loginWindow.webContents.send('replace', '/login')
+  })
 
   ipcMain.on('login', () => {
     loginWindow.close()
@@ -32,9 +38,9 @@ function createLoginWindow() {
   })
 
   // 打开调试控制台
-//     globalShortcut.register('CommandOrControl+Shift+I', () => {
-//       win.webContents.openDevTools({ mode: 'right' })
-//     })
+  //     globalShortcut.register('CommandOrControl+Shift+I', () => {
+  //       win.webContents.openDevTools({ mode: 'right' })
+  //     })
 
   // 在关闭登录窗口时退出应用程序
   //   loginWindow.on('closed', () => {
