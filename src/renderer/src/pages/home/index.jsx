@@ -46,6 +46,10 @@ const Home = defineComponent({
       window.browserWindow.closeWindow()
     }
 
+    function checkUpdate() {
+      window.api.checkUpdate()
+    }
+
     function closeandOpenWindow() {
       openWindow()
       closeWindow()
@@ -68,8 +72,8 @@ const Home = defineComponent({
     return () => {
       return (
         <div class={style.wrap}>
-          <Button type={'primary'} onClick={sendMain}>
-            {test.value}
+          <Button type={'primary'} onClick={checkUpdate}>
+            检查更新
           </Button>
           <Button type={'primary'} onClick={createWindow}>
             打开新窗口

@@ -7,6 +7,7 @@ const api = {
   quitAndInstall: () => ipcRenderer.send('quitAndInstall'),
 
   createWindow: () => ipcRenderer.send('createWindow'),
+  checkUpdate: () => ipcRenderer.send('checkUpdate'),
 
   onMainMessage: (cb) => ipcRenderer.on('refresh', (event, message) => cb(message)),
   onUpdateProgress: (cb) => ipcRenderer.on('onUpdateProgress', (event, message) => cb(message)),

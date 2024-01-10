@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { buildMenu } from './menu'
 import icon from '../../resources/icon.png?asset'
+import { checkForUpdates } from './updater'
 
 let loginWindow
 let mainWindow
@@ -82,6 +83,11 @@ function createMainWindow() {
   ipcMain.on('logout', () => {
     mainWindow.close()
     createLoginWindow()
+  })
+
+  //   检查更新
+  ipcMain.on('checkUpdate', () => {
+    checkForUpdates(mainWindow, ipcMain)
   })
 
   buildMenu(mainWindow, ipcMain)
