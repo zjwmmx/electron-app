@@ -16,6 +16,11 @@ export const router = createRouter({
           component: () => import('@renderer/pages/home')
         }
       ]
+    },
+    {
+      path: '/login',
+      name: '登录',
+      component: () => import('@renderer/pages/login')
     }
   ]
 })

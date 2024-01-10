@@ -14,5 +14,4 @@ ipcMain.on('getStore', (_, key) => {
   _.returnValue = value || ''
 })
 
-
 export default store

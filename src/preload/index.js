@@ -13,6 +13,13 @@ const api = {
   onUpdateStatus: (cb) => ipcRenderer.on('updateStatus', (event, message) => cb(message))
 }
 
+const browserWindow = {
+  openWindow: (value) => ipcRenderer.send('open-window', value),
+  closeWindow: () => ipcRenderer.send('close-window'),
+  logout: () => ipcRenderer.send('logout'),
+  login: () => ipcRenderer.send('login'),
+}
+
 // 缓存
 const store = {
   setStore: (key, value) => ipcRenderer.send('setStore', key, value),
@@ -27,6 +34,9 @@ if (process.contextIsolated) {
     })
     contextBridge.exposeInMainWorld('store', {
       ...store
+    })
+    contextBridge.exposeInMainWorld('browserWindow', {
+      ...browserWindow
     })
   } catch (error) {
     console.error(error)

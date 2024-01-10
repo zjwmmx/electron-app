@@ -10,6 +10,9 @@ const Home = defineComponent({
     const route = useRoute()
     const router = useRouter()
     const test = ref('修改title')
+    const storageData = ref('')
+    const forageData = ref('')
+    
     function sendMain() {
       // 向主线程发送消息
       window.api.setTitle('你是猪吗')
@@ -31,8 +34,27 @@ const Home = defineComponent({
       localforage.setItem('test3333', '333333333333333333333')
     }
 
-    onMounted(() => {
+    function openWindow() {
+      window.browserWindow.openWindow('mainWindow')
+    }
+
+    function logout() {
+      window.browserWindow.logout()
+    }
+
+    function closeWindow() {
+      window.browserWindow.closeWindow()
+    }
+
+    function closeandOpenWindow() {
+      openWindow()
+      closeWindow()
+    }
+
+    onMounted(async () => {
       console.log('渲染进程挂载')
+      storageData.value = localStorage.getItem('test')
+      forageData.value = await localforage.getItem('test3333')
       console.log('test', localStorage.getItem('test'))
       console.log('test3333', localforage.getItem('test'))
       // window.api.getTitle()
@@ -58,6 +80,14 @@ const Home = defineComponent({
           <Button type={'primary'} onClick={setLocalForage}>
             设置本地缓存localForage
           </Button>
+          <Button type={'primary'} onClick={openWindow}>
+            打开新窗口
+          </Button>
+          <Button type={'primary'} onClick={logout}>
+            登出
+          </Button>
+          <div>localStorage: {storageData.value}</div>
+          <div>localforage：{forageData.value}</div>
         </div>
       )
     }
