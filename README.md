@@ -2,24 +2,24 @@
 ### 安装
 
 ```bash
-$ pnpm install
+$ npm install
 ```
 
 ### 运行
 
 ```bash
-$ pnpm run dev
+$ npm run dev
 ```
 
 ### 打包
 
 ```bash
 # For windows
-$ pnpm build:win
+$ npm run build:win
 
 # For macOS
-$ pnpm build:mac
+$ npm run build:mac
 
 # For Linux
-$ pnpm build:linux
+$ npm run build:linux
 ```

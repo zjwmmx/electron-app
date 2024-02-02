@@ -35,15 +35,15 @@ const Home = defineComponent({
     }
 
     function openWindow() {
-      window.browserWindow.openWindow('mainWindow')
+      window.api.openWindow('mainWindow')
     }
 
     function logout() {
-      window.browserWindow.logout()
+      window.api.logout()
     }
 
     function closeWindow() {
-      window.browserWindow.closeWindow()
+      window.api.closeWindow()
     }
 
     function checkUpdate() {

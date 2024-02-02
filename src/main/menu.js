@@ -21,7 +21,7 @@ export function buildMenu(mainWindow, ipcMain) {
           accelerator: 'CmdOrCtrl+Q',
           click: () => {
             // 退出应用程序
-            app.quit() 
+            app.quit()
           }
         }
       ]

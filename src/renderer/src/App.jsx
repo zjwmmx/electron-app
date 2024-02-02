@@ -9,10 +9,11 @@ const App = defineComponent({
     const router = useRouter()
 
     onMounted(() => {
-      window.common.replace((path) => {
+      window.api.replace((path) => {
+        console.log('replace', path)
         router.replace(path)
       })
-      window.common.navigate((path) => {
+      window.api.navigate((path) => {
         router.push(path)
       })
     })

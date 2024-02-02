@@ -11,19 +11,18 @@ const api = {
 
   onMainMessage: (cb) => ipcRenderer.on('refresh', (event, message) => cb(message)),
   onUpdateProgress: (cb) => ipcRenderer.on('onUpdateProgress', (event, message) => cb(message)),
-  onUpdateStatus: (cb) => ipcRenderer.on('updateStatus', (event, message) => cb(message))
-}
+  onUpdateStatus: (cb) => ipcRenderer.on('updateStatus', (event, message) => cb(message)),
 
-const browserWindow = {
+  navigate: (cb) => ipcRenderer.on('navigate', (event, path) => cb(path)),
+  replace: (cb) => ipcRenderer.on('replace', (event, path) => cb(path)),
+
   openWindow: (value) => ipcRenderer.send('open-window', value),
   closeWindow: () => ipcRenderer.send('close-window'),
   logout: () => ipcRenderer.send('logout'),
   login: () => ipcRenderer.send('login')
 }
 
-const common = {
-  navigate: (cb) => ipcRenderer.on('navigate', (event, path) => cb(path)),
-  replace: (cb) => ipcRenderer.on('replace', (event, path) => cb(path))
+const browserWindow = {
 }
 
 // 缓存
@@ -43,9 +42,6 @@ if (process.contextIsolated) {
     })
     contextBridge.exposeInMainWorld('browserWindow', {
       ...browserWindow
-    })
-    contextBridge.exposeInMainWorld('common', {
-      ...common
     })
   } catch (error) {
     console.error(error)

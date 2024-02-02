@@ -2,7 +2,7 @@ import { app } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import path from 'path'
 import log from 'electron-log'
-import { isNil } from 'lodash'
+import { isNil, debounce } from 'lodash'
 
 export function checkForUpdates(mainWindow, ipcMain) {
   autoUpdater.logger = log
@@ -54,7 +54,7 @@ export function checkForUpdates(mainWindow, ipcMain) {
   })
 
   //监听开始检测更新事件
-  autoUpdater.on('checking-for-update', function (message) {
+  autoUpdater.on('checking-for-update', function () {
     sendUpdateMsg({
       status: 'checking',
       msg: '监听开始检测更新事件'
@@ -62,15 +62,19 @@ export function checkForUpdates(mainWindow, ipcMain) {
   })
 
   // 下载进度，包含进度百分比、下载速度、已下载字节、总字节等
-  autoUpdater.on('download-progress', function (progress) {
-    console.log(progress)
-    sendUpdateMsg({
-      status: 'downloading',
-      msg: progress
-    })
-  })
+  autoUpdater.on(
+    'download-progress',
+    debounce(function (progress) {
+      console.log(progress)
+      sendUpdateMsg({
+        status: 'downloading',
+        msg: progress
+      })
+    }),
+    4000
+  )
 
-  ipcMain.on('downloadUpdate', () => {
+  ipcMain.once('downloadUpdate', (info) => {
     autoUpdater.downloadUpdate()
   })
 

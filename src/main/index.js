@@ -1,6 +1,3 @@
-// import { app, shell, BrowserWindow, ipcMain, globalShortcut } from 'electron'
-// import { join } from 'path'
-// import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-// import { buildMenu } from './menu'
-// import icon from '../../resources/icon.png?asset'
 import './window'
+
+// 签名链接：https://oldj.net/article/2022/07/15/code-signing-with-electron-on-windows/
