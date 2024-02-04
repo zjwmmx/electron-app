@@ -19,6 +19,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^2.0.0",
     "@electron-toolkit/utils": "^2.0.0",
+    "@vicons/ionicons5": "^0.12.0",
     "ant-design-vue": "^4.1.0",
     "electron-log": "^5.0.3",
     "electron-store": "^8.1.0",

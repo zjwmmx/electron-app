@@ -252,6 +252,7 @@ function createMainWindow() {
 
   // 检查更新
   ipcMain.on('checkUpdate', () => {
+    console.log('check for updates')
     checkForUpdates(mainWindow, ipcMain)
   })
 

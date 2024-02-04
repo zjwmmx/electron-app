@@ -8,3 +8,71 @@
     margin: 0 8px;
   }
 }
+
+.layout {
+  height: 100vh;
+  .sider {
+    background-color: #1f2d3d;
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      background: linear-gradient(135deg, #e6f1ff, #c1d8ff);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin: 12px 0 4px;
+    }
+
+    .nav {
+      :global(.n-menu-item-content .n-menu-item-content__icon),
+      :global(.n-menu-item-content .n-menu-item-content-header) {
+        color: #fff;
+      }
+      :global(.n-menu-item-content:not(.n-menu-item-content--disabled):hover::before) {
+        left: 0;
+        right: 0;
+        border-radius: 0;
+        padding-left: 16px;
+        background-color: #354250;
+      }
+    }
+  }
+
+  .header {
+    height: 64px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .rt {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  .avatar {
+
+  }
+  .info {
+
+  }
+}

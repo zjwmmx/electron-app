@@ -32,9 +32,9 @@ export default defineConfig({
     css: {
       preprocessorOptions: {
         scss: {
-          // additionalData: `
-          // @use "sass:math";
-          // @import "styles/include/index.scss";`
+          additionalData: `
+          @use "sass:math";
+          @import "src/renderer/src/assets/css/styles.scss";`
         }
       }
     }

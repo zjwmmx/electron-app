@@ -1,12 +1,82 @@
 import { Modal, Progress, Spin } from 'ant-design-vue'
 import { isNil } from 'lodash'
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { Fragment, computed, defineComponent, h, onMounted, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import styles from './style.module.scss'
+import {
+  NLayout,
+  NLayoutHeader,
+  NIcon,
+  NLayoutSider,
+  NMenu,
+  NLayoutContent,
+  NInput,
+  NButton,
+  NAvatar,
+  NText,
+  NTag,
+  NDropdown
+} from 'naive-ui'
+import {
+  BookOutline as BookIcon,
+  PersonOutline as PersonIcon,
+  WineOutline as WineIcon,
+  HomeOutline as HomeIcon,
+  CashOutline,
+  BarbellOutline,
+  NotificationsOutline,
+  ChevronDownSharp
+} from '@vicons/ionicons5'
+
+function renderIcon(icon) {
+  return () => h(NIcon, null, { default: () => h(icon) })
+}
 
 const BaseLayout = defineComponent({
   name: 'BaseLayout',
   setup: () => {
+    const menu = [
+      {
+        label: '首页',
+        key: 'home',
+        icon: renderIcon(HomeIcon)
+      },
+      {
+        key: 'product',
+        label: '采购',
+        icon: renderIcon(PersonIcon)
+      },
+      {
+        key: 'variable',
+        label: '变量',
+        icon: renderIcon(WineIcon)
+      }
+    ]
+
+    const options = [
+      {
+        label: '退出',
+        key: 'logout'
+      },
+      {
+        label: '修改信息',
+        key: 'updateAccount'
+      }
+    ]
+
+    const collapsed = ref(false)
+    const currentMenu = ref(null)
+    const search = ref('')
+    const activeKey = ref(null)
+
+    function onMenuChange(key, item) {
+      currentMenu.value = item
+    }
+
+    function handleSelect(key) {
+      console.log(key)
+    }
+
     const color = ref('#1890ff')
     const downloadProgress = ref({})
     const currentStatus = ref(null)
@@ -94,22 +164,119 @@ const BaseLayout = defineComponent({
     })
 
     return () => {
+      console.log(currentMenu.value)
       return (
-        <div class="wrap">
-          <Spin spinning={['checking', 'pending'].includes(currentStatus.value)}>
-            {!isNil(downloadProgress.value.percent) && (
-              <div class={styles.download}>
-                <Progress
-                  class={styles.progress}
-                  percent={downloadProgress.value.percent.toFixed(0)}
-                  showInfo={false}
-                />
-                {percent.value}
+        <NLayout class={styles.layout} has-sider>
+          <NLayoutSider
+            class={styles.sider}
+            collapse-mode="width"
+            collapsed-width={64}
+            width={150}
+            collapsed={collapsed.value}
+            show-trigger
+            onCollapse={() => (collapsed.value = true)}
+            onExpand={() => (collapsed.value = false)}
+          >
+            <div class={styles.logo}>logo图标</div>
+            <NMenu
+              class={styles.nav}
+              options={menu}
+              v-model:value={activeKey.value}
+              onUpdate:value={onMenuChange}
+              indent={16}
+            />
+          </NLayoutSider>
+          <NLayout>
+            <NLayoutHeader bordered>
+              <div class={styles.header}>
+                <h4>{currentMenu.value?.label}</h4>
+                <div class={styles.rt}>
+                  <NInput type="text" v-model:value={search.value} placeholder={'请输入用户名'} />
+                  <NButton round type="primary" color="#fd721d">
+                    +全网采购
+                  </NButton>
+                  <NButton quaternary round text>
+                    首页
+                  </NButton>
+                  <NButton
+                    quaternary
+                    round
+                    text
+                    vSlots={{
+                      icon: () => (
+                        <NIcon>
+                          <CashOutline />
+                        </NIcon>
+                      )
+                    }}
+                  >
+                    新手指南
+                  </NButton>
+                  <NButton
+                    quaternary
+                    round
+                    text
+                    vSlots={{
+                      icon: () => (
+                        <NIcon>
+                          <NotificationsOutline />
+                        </NIcon>
+                      )
+                    }}
+                  >
+                    消息
+                  </NButton>
+                  <div>
+                    <NDropdown
+                      placement="bottom-start"
+                      trigger="click"
+                      size="large"
+                      width="trigger"
+                      options={options}
+                      onSelect={handleSelect}
+                    >
+                      <div class={styles.user}>
+                        <NAvatar
+                          class={styles.avatar}
+                          round
+                          src={'https://07akioni.oss-cn-beijing.aliyuncs.com/demo1.JPG'}
+                        />
+                        <div class={styles.info}>
+                          <div>
+                            <NText depth={3}>13229293233</NText>
+                          </div>
+                          <div>
+                            <NTag type="success" size="small">
+                              标签
+                            </NTag>
+                          </div>
+                        </div>
+                        <NIcon>
+                          <ChevronDownSharp />
+                        </NIcon>
+                      </div>
+                    </NDropdown>
+                  </div>
+                </div>
               </div>
-            )}
-          </Spin>
-          <RouterView></RouterView>
-        </div>
+            </NLayoutHeader>
+            <NLayoutContent content-style="padding: 24px;">
+              <Spin spinning={['checking', 'pending'].includes(currentStatus.value)}>
+                {!isNil(downloadProgress.value.percent) && (
+                  <div class={styles.download}>
+                    <Progress
+                      class={styles.progress}
+                      percent={downloadProgress.value.percent.toFixed(0)}
+                      showInfo={false}
+                    />
+                    {percent.value}
+                  </div>
+                )}
+              </Spin>
+              <RouterView></RouterView>
+            </NLayoutContent>
+          </NLayout>
+        </NLayout>
       )
     }
   }
