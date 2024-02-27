@@ -1,4 +1,4 @@
-# my-app
+# mmx-app
 ### 安装
 
 ```bash
