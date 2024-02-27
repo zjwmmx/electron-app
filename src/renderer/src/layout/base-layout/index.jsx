@@ -1,6 +1,6 @@
 import { Modal, Progress, Spin } from 'ant-design-vue'
 import { isNil } from 'lodash'
-import { Fragment, computed, defineComponent, h, onMounted, ref } from 'vue'
+import { computed, defineComponent, h, onMounted, ref } from 'vue'
 import { RouterView } from 'vue-router'
 import styles from './style.module.scss'
 import {
@@ -23,10 +23,11 @@ import {
   WineOutline as WineIcon,
   HomeOutline as HomeIcon,
   CashOutline,
-  BarbellOutline,
   NotificationsOutline,
   ChevronDownSharp
 } from '@vicons/ionicons5'
+import { userStore } from '../../store/user.store'
+import { storeToRefs } from 'pinia'
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -69,11 +70,17 @@ const BaseLayout = defineComponent({
     const search = ref('')
     const activeKey = ref(null)
 
+    const store = userStore()
+    const { getUserInfo, token } = storeToRefs(store)
+
     function onMenuChange(key, item) {
       currentMenu.value = item
     }
 
     function handleSelect(key) {
+      if (key === 'logout') {
+        window.api.logout()
+      }
       console.log(key)
     }
 
@@ -161,6 +168,7 @@ const BaseLayout = defineComponent({
       })
       window.store.setStore('color', 'red')
       color.value = window.store.getStore('color')
+      store.getUserInfo()
     })
 
     return () => {
@@ -191,7 +199,7 @@ const BaseLayout = defineComponent({
               <div class={styles.header}>
                 <h4>{currentMenu.value?.label}</h4>
                 <div class={styles.rt}>
-                  <NInput type="text" v-model:value={search.value} placeholder={'请输入用户名'} />
+                  {/* <NInput type="text" v-model:value={search.value} placeholder={'请输入用户名'} />
                   <NButton round type="primary" color="#fd721d">
                     +全网采购
                   </NButton>
@@ -225,7 +233,7 @@ const BaseLayout = defineComponent({
                     }}
                   >
                     消息
-                  </NButton>
+                  </NButton> */}
                   <div>
                     <NDropdown
                       placement="bottom-start"

@@ -21,15 +21,18 @@
     "@electron-toolkit/utils": "^2.0.0",
     "@vicons/ionicons5": "^0.12.0",
     "ant-design-vue": "^4.1.0",
+    "axios": "^1.6.7",
     "electron-log": "^5.0.3",
     "electron-store": "^8.1.0",
+    "js-cookie": "^3.0.5",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "naive-ui": "^2.37.3",
     "pinia": "^2.1.7",
     "sass": "^1.69.6",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.1",

@@ -9,14 +9,21 @@
   .form {
     padding: 48px;
     width: 80%;
+    max-width: 560px;
     margin: auto;
 
     .submit {
-      width: 100%;
+      width: calc(50% - 8px);
     }
 
     .title {
       margin-top: -60px;
+    }
+
+    .btns {
+      display: flex;
+      gap: 16px;
+      width: 100%;
     }
   }
 }
