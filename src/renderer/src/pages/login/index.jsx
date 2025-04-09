@@ -30,7 +30,8 @@ const Login = defineComponent({
       // 调用主进程的登录方法
       const params = {
         username: formData.value.username,
-        password: formData.value.password
+        password: formData.value.password,
+        sourceType: 'electron'
       }
       await store.login(params)
       message.success('登录成功')
@@ -41,7 +42,8 @@ const Login = defineComponent({
       // 调用主进程的登录方法
       const params = {
         username: formData.value.username,
-        password: formData.value.password
+        password: formData.value.password,
+        sourceType: 'electron'
       }
       await register(params)
       message.success('注册成功')

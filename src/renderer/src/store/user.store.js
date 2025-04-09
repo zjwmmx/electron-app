@@ -9,9 +9,9 @@ export const userStore = defineStore('user', () => {
   const token = ref(null)
 
   async function login(params) {
-    const res = await signIn(params)
-    token.value = res.token
-    cookies.set('token', res.token)
+    // const res = await signIn(params)
+    // token.value = res.token
+    // cookies.set('token', res.token)
     window.api.login()
   }
 

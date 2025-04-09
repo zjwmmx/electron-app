@@ -1,4 +1,3 @@
-import { ConfigProvider } from 'ant-design-vue'
 import { NMessageProvider, NConfigProvider } from 'naive-ui/es'
 import { defineComponent, onMounted } from 'vue'
 import { RouterView, useRouter } from 'vue-router'

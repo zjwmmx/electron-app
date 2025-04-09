@@ -5,10 +5,10 @@ const api = {
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
   downloadUpdate: () => ipcRenderer.send('downloadUpdate'),
   quitAndInstall: () => ipcRenderer.send('quitAndInstall'),
-
+  
   createWindow: () => ipcRenderer.send('createWindow'),
   checkUpdate: () => ipcRenderer.send('checkUpdate'),
-
+  
   onMainMessage: (cb) => ipcRenderer.on('refresh', (event, message) => cb(message)),
   onUpdateProgress: (cb) => ipcRenderer.on('onUpdateProgress', (event, message) => cb(message)),
   onUpdateStatus: (cb) => ipcRenderer.on('updateStatus', (event, message) => cb(message)),
@@ -19,7 +19,9 @@ const api = {
   openWindow: (value) => ipcRenderer.send('open-window', value),
   closeWindow: () => ipcRenderer.send('close-window'),
   logout: () => ipcRenderer.send('logout'),
-  login: () => ipcRenderer.send('login')
+  login: () => ipcRenderer.send('login'),
+
+  getUpdateLogs: () => ipcRenderer.invoke('getUpdateLogs'),
 }
 
 const browserWindow = {

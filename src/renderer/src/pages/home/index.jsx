@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, ref } from 'vue'
 import style from './style.module.scss'
 import { useRoute, useRouter } from 'vue-router'
-import { Button } from 'ant-design-vue'
+import { Button, Modal } from 'ant-design-vue'
 import localforage from 'localforage'
 
 const Home = defineComponent({
@@ -12,6 +12,7 @@ const Home = defineComponent({
     const test = ref('修改title')
     const storageData = ref('')
     const forageData = ref('')
+    const currentStatus = ref(null)
     
     function sendMain() {
       // 向主线程发送消息
@@ -46,7 +47,14 @@ const Home = defineComponent({
       window.api.closeWindow()
     }
 
-    function checkUpdate() {
+    function handleCheckUpdate() {
+      if (['checking', 'downloading', 'pending'].includes(currentStatus.value)) {
+        Modal.warning({
+          title: '提示',
+          content: '正在检查或下载更新，请稍候...'
+        })
+        return
+      }
       window.api.checkUpdate()
     }
 
@@ -68,11 +76,15 @@ const Home = defineComponent({
         console.log(router)
         router.go(0)
       })
+
+      window.api.onUpdateStatus(({ status }) => {
+        currentStatus.value = status
+      })
     })
     return () => {
       return (
         <div class={style.wrap}>
-          <Button type={'primary'} onClick={checkUpdate}>
+          <Button type={'primary'} onClick={handleCheckUpdate}>
             检查更新
           </Button>
           <Button type={'primary'} onClick={createWindow}>

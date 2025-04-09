@@ -1,5 +1,5 @@
 appId: com.electron.app
-productName: my-app
+productName: mmx-app
 directories:
   buildResources: build
 files:
@@ -11,7 +11,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: my-app
+  executableName: mmx-app
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -43,4 +43,3 @@ publish:
   provider: github
   owner: zjwmmx
   repo: electron-app
-  # token: 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

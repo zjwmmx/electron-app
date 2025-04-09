@@ -28,6 +28,7 @@ import {
 } from '@vicons/ionicons5'
 import { userStore } from '../../store/user.store'
 import { storeToRefs } from 'pinia'
+import { TimeSchedule } from '@mmxzjw/component'
 
 function renderIcon(icon) {
   return () => h(NIcon, null, { default: () => h(icon) })
@@ -62,6 +63,10 @@ const BaseLayout = defineComponent({
       {
         label: '修改信息',
         key: 'updateAccount'
+      },
+      {
+        label: '查看更新日志',
+        key: 'viewUpdateLog'
       }
     ]
 
@@ -69,6 +74,8 @@ const BaseLayout = defineComponent({
     const currentMenu = ref(null)
     const search = ref('')
     const activeKey = ref(null)
+    const showUpdateLog = ref(false)
+    const updateLogs = ref([])
 
     const store = userStore()
     const { getUserInfo, token } = storeToRefs(store)
@@ -80,6 +87,11 @@ const BaseLayout = defineComponent({
     function handleSelect(key) {
       if (key === 'logout') {
         window.api.logout()
+      } else if (key === 'viewUpdateLog') {
+        showUpdateLog.value = true
+        window.api.getUpdateLogs((logs) => {
+          updateLogs.value = logs
+        })
       }
       console.log(key)
     }
@@ -97,6 +109,12 @@ const BaseLayout = defineComponent({
       const formatTotal = formatSize(total)
       const formatTransferred = formatSize(transferred)
       return `${formatTransferred}MB/${formatTotal}MB`
+    })
+
+    const downloadInfo = computed(() => {
+      const { speed, remaining } = downloadProgress.value
+      if (!speed && !remaining) return ''
+      return `下载速度: ${speed}KB/s | 剩余时间: ${remaining}秒`
     })
 
     function handleStatusChange(status, msg) {
@@ -158,8 +176,21 @@ const BaseLayout = defineComponent({
           window.api.downloadUpdate()
           currentStatus.value = 'pending'
         },
-        onCancel() {}
+        onCancel() {
+          currentStatus.value = null
+        }
       })
+    }
+
+    function handleCheckUpdate() {
+      if (['checking', 'downloading', 'pending'].includes(currentStatus.value)) {
+        Modal.warning({
+          title: '提示',
+          content: '正在检查或下载更新，请稍候...'
+        })
+        return
+      }
+      window.api.checkUpdate()
     }
 
     onMounted(() => {
@@ -277,13 +308,32 @@ const BaseLayout = defineComponent({
                       percent={downloadProgress.value.percent.toFixed(0)}
                       showInfo={false}
                     />
-                    {percent.value}
+                    <div class={styles.downloadInfo}>
+                      <div>{percent.value}</div>
+                      <div>{downloadInfo.value}</div>
+                    </div>
                   </div>
                 )}
               </Spin>
               <RouterView></RouterView>
             </NLayoutContent>
           </NLayout>
+          <Modal
+            title="更新日志"
+            v-model:visible={showUpdateLog.value}
+            width={800}
+            footer={null}
+          >
+            <div class={styles.updateLog}>
+              {updateLogs.value.map((log, index) => (
+                <div key={index} class={styles.logItem}>
+                  <div class={styles.logTime}>{new Date(log.timestamp).toLocaleString()}</div>
+                  <div class={styles.logEvent}>{log.event}</div>
+                  {log.msg && <div class={styles.logMsg}>{JSON.stringify(log.msg)}</div>}
+                </div>
+              ))}
+            </div>
+          </Modal>
         </NLayout>
       )
     }
