@@ -2,39 +2,53 @@ import { ipcMain } from 'electron'
 import { app as electronApp } from 'electron'
 import fs from 'fs'
 import path from 'path'
-import { logger } from './logger'
-
-console.log('log.js开始执行...')
+import { logger, handleError } from './logger'
 
 // 更新日志文件路径
 const UPDATE_LOG_PATH = path.join(electronApp.getPath('userData'), 'update.log')
-console.log('更新日志文件路径:', UPDATE_LOG_PATH)
 
-// 记录更新日志
-function logUpdateEvent(event, data = {}) {
-  console.log('记录更新日志:', event, data)
-  const timestamp = new Date().toISOString()
-  const logEntry = {
-    timestamp,
-    event,
-    ...data
+// 确保日志目录存在
+const logDir = electronApp.getPath('userData')
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir, { recursive: true })
+}
+
+// 写入更新日志
+export function writeUpdateLog(message) {
+  try {
+    const timestamp = new Date().toISOString()
+    const logMessage = `[${timestamp}] ${message}\n`
+    fs.appendFileSync(UPDATE_LOG_PATH, logMessage)
+    logger.info('更新日志已写入', { message })
+  } catch (error) {
+    handleError(error, '写入更新日志失败')
   }
-
-  fs.appendFileSync(UPDATE_LOG_PATH, JSON.stringify(logEntry) + '\n')
-  console.log('更新日志记录完成')
 }
 
-// 获取更新日志
+// 读取更新日志
+export async function getUpdateLogs() {
+  try {
+    if (!fs.existsSync(UPDATE_LOG_PATH)) {
+      return []
+    }
+    const content = fs.readFileSync(UPDATE_LOG_PATH, 'utf-8')
+    const logs = content.split('\n').filter(line => line.trim())
+    logger.info('更新日志已读取', { count: logs.length })
+    return logs
+  } catch (error) {
+    handleError(error, '读取更新日志失败')
+    return []
+  }
+}
+
+// 设置更新日志处理程序
 export function setupUpdateLogHandler(ipcMain) {
-  console.log('开始设置更新日志处理程序...')
-  ipcMain.on('update-log', (event, log) => {
-    console.log('收到更新日志:', log)
-    logger.info('Update log received', { log })
-  })
-  logger.info('Update log handler setup completed')
-  console.log('更新日志处理程序设置完成')
+  try {
+    ipcMain.on('update-log', (event, message) => {
+      writeUpdateLog(message)
+    })
+    logger.info('更新日志处理程序已设置')
+  } catch (error) {
+    handleError(error, '设置更新日志处理程序失败')
+  }
 }
-
-export { logUpdateEvent }
-
-console.log('log.js执行完成')

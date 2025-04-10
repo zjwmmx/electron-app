@@ -1,13 +1,13 @@
 import { app } from 'electron'
 import { join } from 'path'
 import fs from 'fs'
+import config from './config'
 
 // 日志级别
 const LOG_LEVELS = {
-  DEBUG: 'DEBUG',
-  INFO: 'INFO',
+  ERROR: 'ERROR',
   WARN: 'WARN',
-  ERROR: 'ERROR'
+  INFO: 'INFO'
 }
 
 // 日志文件路径
@@ -42,29 +42,25 @@ function writeToLogFile(level, message, data = null) {
     
     fs.appendFileSync(LOG_FILE_PATH, logMessage)
   } catch (error) {
-    // 使用process.stderr.write直接写入错误信息
     process.stderr.write(`Error writing to log file: ${error.message}\n`)
   }
 }
 
 // 简单的日志记录函数，不依赖配置
 function log(level, message, data = null) {
-  // 直接写入文件
   writeToLogFile(level, message, data)
 }
 
 // 导出日志函数
 export const logger = {
-  debug: (message, data) => log(LOG_LEVELS.DEBUG, message, data),
-  info: (message, data) => log(LOG_LEVELS.INFO, message, data),
+  error: (message, data) => log(LOG_LEVELS.ERROR, message, data),
   warn: (message, data) => log(LOG_LEVELS.WARN, message, data),
-  error: (message, data) => log(LOG_LEVELS.ERROR, message, data)
+  info: (message, data) => log(LOG_LEVELS.INFO, message, data)
 }
 
 // 导出错误处理函数
 export function handleError(error, context = '') {
   const errorMessage = context ? `${context}: ${error.message}` : error.message
-  // 直接写入错误信息到文件
   writeToLogFile(LOG_LEVELS.ERROR, errorMessage, error)
   return error
 }
@@ -79,4 +75,4 @@ process.on('unhandledRejection', (reason, promise) => {
 })
 
 // 记录应用启动
-// logger.info('Application starting', { config: config.getConfig() }) 
+logger.info('Application starting', { config: config.getConfig() }) 

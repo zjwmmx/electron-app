@@ -84,14 +84,18 @@ const BaseLayout = defineComponent({
       currentMenu.value = item
     }
 
-    function handleSelect(key) {
+    async function handleSelect(key) {
       if (key === 'logout') {
         window.api.logout()
       } else if (key === 'viewUpdateLog') {
         showUpdateLog.value = true
-        window.api.getUpdateLogs((logs) => {
+        try {
+          console.log('查看更新日志')
+          const logs = await window.api.getUpdateLogs()
           updateLogs.value = logs
-        })
+        } catch (error) {
+          console.log('查看更新日志失败：', error)
+        }
       }
       console.log(key)
     }
@@ -174,10 +178,12 @@ const BaseLayout = defineComponent({
         okText: '立即更新',
         onOk() {
           window.api.downloadUpdate()
+          window.api.updateLog('点击更新')
           currentStatus.value = 'pending'
         },
         onCancel() {
           currentStatus.value = null
+          window.api.updateLog('暂不更新')
         }
       })
     }
@@ -318,20 +324,19 @@ const BaseLayout = defineComponent({
               <RouterView></RouterView>
             </NLayoutContent>
           </NLayout>
-          <Modal
-            title="更新日志"
-            v-model:visible={showUpdateLog.value}
-            width={800}
-            footer={null}
-          >
+          <Modal title="更新日志" v-model:visible={showUpdateLog.value} width={800} footer={null}>
             <div class={styles.updateLog}>
-              {updateLogs.value.map((log, index) => (
-                <div key={index} class={styles.logItem}>
-                  <div class={styles.logTime}>{new Date(log.timestamp).toLocaleString()}</div>
-                  <div class={styles.logEvent}>{log.event}</div>
-                  {log.msg && <div class={styles.logMsg}>{JSON.stringify(log.msg)}</div>}
-                </div>
-              ))}
+              {updateLogs.value.map((log, index) => {
+                // log = JSON.parse(log)
+                return (
+                  <div key={index} class={styles.logItem}>
+                    <div>{log}</div>
+                    {/* <div class={styles.logTime}>{new Date(log.timestamp).toLocaleString()}</div>
+                    <div class={styles.logEvent}>{log.event}</div>
+                    {log.msg && <div class={styles.logMsg}>{JSON.stringify(log.msg)}</div>} */}
+                  </div>
+                )
+              })}
             </div>
           </Modal>
         </NLayout>

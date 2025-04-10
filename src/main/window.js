@@ -6,7 +6,7 @@ import icon from '../../resources/icon.png?asset'
 import { checkForUpdates } from './updater'
 import { logger, handleError } from './logger'
 import config from './config'
-import { setupUpdateLogHandler } from './log'
+import { setupUpdateLogHandler, getUpdateLogs } from './log'
 
 // 存储当前活动窗口
 let activeWindow = null
@@ -136,6 +136,13 @@ function setupMainWindowIPC(win) {
       logger.info('Resetting configuration')
       config.resetConfig()
     })
+
+    // 监听获取更新日志事件
+    ipcMain.handle('getUpdateLogs', async () => {
+      console.log('Getting update logs')
+      logger.info('Getting update logs')
+      return await getUpdateLogs()
+    })
   } catch (error) {
     handleError(error, 'setupMainWindowIPC')
   }
@@ -242,7 +249,6 @@ app.on('window-all-closed', () => {
 app.on('will-quit', () => {
   try {
     globalShortcut.unregisterAll()
-    logger.info('Global shortcuts unregistered')
   } catch (error) {
     handleError(error, 'app.will-quit')
   }
