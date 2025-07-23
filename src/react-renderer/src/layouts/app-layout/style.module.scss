@@ -1,0 +1,48 @@
+.appLayout {
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 0 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1890ff;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.welcome {
+  margin-right: 20px;
+}
+
+.logout {
+  cursor: pointer;
+  color: #1890ff;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.sider {
+  background: #fff;
+  box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+  padding: 24px;
+  background: #f0f2f5;
+  min-height: 280px;
+  overflow: auto;
+} 

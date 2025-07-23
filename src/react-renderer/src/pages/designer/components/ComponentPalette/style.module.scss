@@ -1,0 +1,29 @@
+.componentPalette {
+  height: 100%;
+  overflow-y: auto;
+  padding: 12px;
+  background-color: #fff;
+  border-right: 1px solid #f0f0f0;
+
+  .componentList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .componentItem {
+    padding: 6px 8px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px dashed #d9d9d9;
+    border-radius: 4px;
+    cursor: move;
+    transition: all 0.3s;
+    font-size: 12px;
+
+    &:hover {
+      border-color: #1890ff;
+      color: #1890ff;
+    }
+  }
+} 

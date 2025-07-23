@@ -1,0 +1,138 @@
+.formItem {
+  position: relative;
+  margin-bottom: 0;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: #1890ff;
+    background-color: rgba(24, 144, 255, 0.02);
+  }
+}
+
+.buttonWrapper {
+  position: relative;
+  margin-bottom: 0;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: #1890ff;
+    background-color: rgba(24, 144, 255, 0.02);
+  }
+}
+
+.componentWrapper {
+  position: relative;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: #1890ff;
+    background-color: rgba(24, 144, 255, 0.02);
+  }
+}
+
+.gridContainer {
+  background-color: #fafafa;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  padding: 8px;
+  margin: -8px;
+
+  :global {
+    .ant-row {
+      margin-bottom: 8px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.gridCell {
+  min-height: 100px;
+  transition: all 0.3s;
+}
+
+.cellContent {
+  height: 100%;
+  min-height: 80px;
+  padding: 8px;
+  background-color: #fff;
+  border: 1px dashed #d9d9d9;
+  border-radius: 4px;
+  transition: all 0.3s;
+
+  &:hover {
+    border-color: #40a9ff;
+    background-color: rgba(24, 144, 255, 0.02);
+  }
+
+  &.isOver {
+    border-color: #1890ff;
+    background-color: rgba(24, 144, 255, 0.04);
+    border-style: solid;
+  }
+}
+
+.emptyCellHint {
+  height: 100%;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.02);
+  border-radius: 2px;
+}
+
+.sortableItem {
+  position: relative;
+  cursor: move;
+  margin-bottom: 8px;
+  background: #fff;
+  transition: all 0.2s;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid #1890ff;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+
+  &.selected {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 2px solid #1890ff;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 1;
+    }
+  }
+} 

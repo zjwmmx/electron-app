@@ -23,7 +23,12 @@ const api = {
 
   updateLog: (value) => ipcRenderer.send('update-log', value),
 
-  getUpdateLogs: () => ipcRenderer.invoke('getUpdateLogs')
+  getUpdateLogs: () => ipcRenderer.invoke('getUpdateLogs'),
+  getConfig: () => ipcRenderer.invoke('get-config'),
+  updateConfig: (newConfig) => ipcRenderer.send('update-config', newConfig),
+
+  writeText: (text) => ipcRenderer.invoke('clipboard:writeText', text),
+  readText: () => ipcRenderer.invoke('clipboard:readText'),
 }
 
 const browserWindow = {}

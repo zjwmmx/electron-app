@@ -1,0 +1,35 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
+}
+
+.loginCard {
+  width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  text-align: center;
+  color: #1890ff;
+  margin-bottom: 24px;
+  font-size: 24px;
+}
+
+.loginForm {
+  .ant-form-item {
+    margin-bottom: 24px;
+  }
+
+  .ant-input-affix-wrapper {
+    border-radius: 4px;
+  }
+
+  .ant-btn {
+    height: 40px;
+    border-radius: 4px;
+  }
+} 

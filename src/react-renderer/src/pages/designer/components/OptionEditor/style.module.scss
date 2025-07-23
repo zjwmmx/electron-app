@@ -1,0 +1,21 @@
+.optionEditor {
+  .optionItem {
+    margin-bottom: 12px;
+  }
+
+  .formItem {
+    margin-bottom: 0;
+  }
+
+  .deleteBtn {
+    color: #ff4d4f;
+
+    &:hover {
+      background-color: #fff1f0;
+    }
+  }
+
+  .addButton {
+    width: 100%;
+  }
+} 

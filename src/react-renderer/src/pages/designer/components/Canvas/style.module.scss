@@ -1,0 +1,138 @@
+.canvas {
+  height: 100%;
+  padding: 0 24px;
+  background-color: #f5f5f5;
+  overflow-y: auto;
+
+  .canvasInner {
+    min-height: 100%;
+    padding: 24px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    &:empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 400px;
+    }
+  }
+}
+
+.form {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.sortableItem {
+  position: relative;
+  cursor: move;
+  border: 1px dashed transparent;
+  border-radius: 4px;
+  transition: all 0.2s;
+  margin-bottom: 8px;
+
+  &:hover {
+    border-color: #40a9ff;
+  }
+
+  &.selected {
+    border-color: #1890ff;
+    background-color: rgba(24, 144, 255, 0.04);
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      // border: 2px solid #1890ff;
+      border-radius: 4px;
+      pointer-events: none;
+    }
+  }
+}
+
+.droppableZone {
+  min-height: 50px;
+  padding: 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  position: relative;
+
+  &.isOver {
+    background-color: rgba(24, 144, 255, 0.04);
+    border: 2px dashed #1890ff;
+  }
+
+  // 容器组件的子组件区域
+  &.containerChildren {
+    margin: 8px -8px -8px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px dashed #d9d9d9;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+
+    &.isOver {
+      background-color: rgba(24, 144, 255, 0.04);
+      border: 2px dashed #1890ff;
+    }
+
+    // 嵌套的容器样式
+    .droppableZone {
+      background-color: rgba(0, 0, 0, 0.01);
+      border: 1px dashed #e8e8e8;
+
+      &.isOver {
+        background-color: rgba(24, 144, 255, 0.04);
+        border: 2px dashed #1890ff;
+      }
+    }
+  }
+}
+
+.emptyContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60px;
+}
+
+.dropHint {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+  border: 2px dashed #d9d9d9;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.dropIndicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2px;
+  height: 4px;
+  background-color: #1890ff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(24,144,255,0.18);
+  pointer-events: none;
+  z-index: 1000;
+  transition: all 0.18s cubic-bezier(.4,0,.2,1);
+}
+
+// Row 组件样式
+:global {
+  .ant-row {
+    margin: -8px !important;
+    & > .ant-col {
+      padding: 8px !important;
+    }
+  }
+} 

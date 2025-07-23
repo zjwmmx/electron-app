@@ -1,0 +1,230 @@
+.editorLayout {
+  height: 100vh;
+  background: #f0f2f5;
+}
+
+.header {
+  background: #fff;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  z-index: 1;
+}
+
+.content {
+  padding: 24px;
+  height: calc(100vh - 64px);
+  overflow: hidden;
+}
+
+.editorCard {
+  height: 100%;
+  :global {
+    .w-md-editor {
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      
+      .w-md-editor-toolbar {
+        border-bottom: 1px solid #f0f0f0;
+        background: #fafafa;
+      }
+      
+      .w-md-editor-content {
+        background: #fff;
+      }
+      
+      .w-md-editor-preview {
+        background: #fafafa;
+        border-left: 1px solid #f0f0f0;
+      }
+    }
+  }
+}
+
+.mdEditorLayout {
+  height: 100vh;
+  background: #f6f7fb;
+}
+
+.topMenu {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.03);
+  z-index: 10;
+  border-bottom: 1px solid #f0f0f0;
+}
+.logo {
+  font-weight: 700;
+  font-size: 22px;
+  margin-right: 40px;
+  color: #222;
+  letter-spacing: 1px;
+}
+.menuBar {
+  flex: 1;
+  background: transparent;
+  border-bottom: none;
+  font-size: 16px;
+}
+.leftSider {
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+  height: calc(100vh - 56px);
+  overflow: auto;
+  padding: 0 0 0 0;
+  box-shadow: 1px 0 8px 0 rgba(0,0,0,0.02);
+}
+.centerContent {
+  background: #f6f7fb;
+  padding: 0 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: calc(100vh - 56px);
+}
+.rightSider {
+  background: #fff;
+  border-left: 1px solid #f0f0f0;
+  height: calc(100vh - 56px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 40px;
+  box-shadow: -1px 0 8px 0 rgba(0,0,0,0.02);
+}
+
+// 文章列表
+.articleList {
+  padding: 18px 8px 0 8px;
+}
+.articleListHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #222;
+}
+.articleSearch {
+  margin-bottom: 12px;
+  border-radius: 20px !important;
+  background: #f6f7fb;
+  border: 1px solid #e5e6eb;
+  padding-left: 10px !important;
+}
+.articleListContent {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+.articleItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 8px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background 0.2s;
+  cursor: pointer;
+  &:hover {
+    background: #f0f6ff;
+    .ant-btn {
+      opacity: 1;
+    }
+  }
+}
+.selected {
+  background: #e6f7ff !important;
+  box-shadow: 0 2px 8px 0 rgba(24,144,255,0.08);
+}
+.articleTitle {
+  font-size: 15px;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #222;
+}
+.articleTime {
+  color: #b0b3b8;
+  font-size: 12px;
+  margin-right: 2px;
+}
+.ant-btn {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+  border-radius: 50%;
+  &:hover {
+    opacity: 1;
+    background: #f0f6ff;
+  }
+}
+
+// 编辑器区
+.editorPanel {
+  width: 100%;
+  margin: 32px auto 0 auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.06);
+  padding: 32px 24px;
+  min-height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transition: box-shadow 0.2s;
+
+  .editorContent {
+    width: 100%;
+  }
+
+  pre {
+    padding: 0;
+    line-height: 1;
+  }
+}
+
+// 快捷操作区
+.quickActions {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  .ant-btn {
+    margin-bottom: 8px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+    background: #f6f7fb;
+    border: none;
+    color: #222;
+    font-size: 18px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: background 0.2s, color 0.2s;
+    &:hover {
+      background: #e6f7ff;
+      color: #1890ff;
+    }
+  }
+  .ant-divider {
+    margin: 10px 0;
+    background: #f0f0f0;
+  }
+}
+
+// 滚动条美化
+::-webkit-scrollbar {
+  width: 6px;
+  background: #f6f7fb;
+}
+::-webkit-scrollbar-thumb {
+  background: #e5e6eb;
+  border-radius: 3px;
+}

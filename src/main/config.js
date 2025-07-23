@@ -77,12 +77,12 @@ function saveConfig(config) {
 }
 
 // 获取配置
-function getConfig() {
+export function getConfig() {
   return loadConfig()
 }
 
 // 更新配置
-function updateConfig(newConfig) {
+export function updateConfig(newConfig) {
   const currentConfig = loadConfig()
   const updatedConfig = deepMerge(currentConfig, newConfig)
   saveConfig(updatedConfig)
@@ -90,7 +90,7 @@ function updateConfig(newConfig) {
 }
 
 // 重置配置
-function resetConfig() {
+export function resetConfig() {
   saveConfig(DEFAULT_CONFIG)
   logger.info('Configuration reset to defaults')
   return DEFAULT_CONFIG
@@ -100,4 +100,4 @@ export default {
   getConfig,
   updateConfig,
   resetConfig
-} 
+}

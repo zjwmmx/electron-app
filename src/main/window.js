@@ -7,6 +7,10 @@ import { checkForUpdates } from './updater'
 import { logger, handleError } from './logger'
 import config from './config'
 import { setupUpdateLogHandler, getUpdateLogs } from './log'
+import { initSecurity } from './security'
+import { initPerformance } from './performance'
+import { initDebug } from './debug'
+import { initErrorHandling } from './error'
 
 // 存储当前活动窗口
 let activeWindow = null
@@ -98,6 +102,12 @@ function setupLoginWindowIPC(win) {
       win.close()
       createMainWindow()
     })
+    
+    // 获取配置
+    ipcMain.handle('get-config', async () => {
+      logger.info('Getting config')
+      return config.getConfig()
+    })
   } catch (error) {
     handleError(error, 'setupLoginWindowIPC')
   }
@@ -143,14 +153,80 @@ function setupMainWindowIPC(win) {
       logger.info('Getting update logs')
       return await getUpdateLogs()
     })
+    
+    // 获取系统信息
+    ipcMain.handle('get-system-info', async () => {
+      logger.info('Getting system info')
+      
+      const systemInfo = {
+        appVersion: app.getVersion(),
+        platform: process.platform,
+        uptime: process.uptime(),
+        electronVersion: process.versions.electron,
+        nodeVersion: process.versions.node,
+        chromiumVersion: process.versions.chrome
+      }
+      
+      return systemInfo
+    })
+    
+    // 获取配置
+    ipcMain.handle('get-config', async () => {
+      logger.info('Getting config')
+      return config.getConfig()
+    })
   } catch (error) {
     handleError(error, 'setupMainWindowIPC')
+  }
+}
+
+// 初始化应用
+function initApp() {
+  try {
+    // 初始化安全配置
+    initSecurity()
+
+    // 初始化错误处理
+    initErrorHandling()
+
+    // 初始化性能监控
+    initPerformance()
+
+    logger.info('应用初始化完成')
+  } catch (error) {
+    handleError(error, 'initApp')
+  }
+}
+
+// 初始化窗口
+function initWindow(win) {
+  try {
+    // 初始化调试支持
+    initDebug(win)
+
+    // 设置托盘
+    createTray(win)
+
+    // 设置菜单
+    buildMenu(win)
+
+    // 设置更新器
+    if (config.getConfig().updates.checkOnStartup) {
+      checkForUpdates(win, ipcMain)
+    }
+
+    logger.info('窗口初始化完成')
+  } catch (error) {
+    handleError(error, 'initWindow')
   }
 }
 
 // 创建登录窗口
 function createLoginWindow() {
   try {
+    // 初始化应用
+    initApp()
+    
     // 注册全局快捷键
     registryShortcut()
     
@@ -160,6 +236,9 @@ function createLoginWindow() {
       logger.error('Failed to create login window')
       return null
     }
+    
+    // 初始化窗口
+    initWindow(win)
     
     // 设置IPC事件监听
     setupLoginWindowIPC(win)

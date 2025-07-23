@@ -1,0 +1,61 @@
+.propertiesPanel {
+  height: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border-left: 1px solid #f0f0f0;
+  overflow-y: auto;
+
+  &:empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .formItem {
+    margin-bottom: 16px;
+
+    :global {
+      .ant-form-item-label {
+        padding-bottom: 4px;
+      }
+    }
+  }
+}
+
+.gridOperations {
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 4px;
+  margin-bottom: 16px;
+
+  .operationGroup {
+    margin-bottom: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .operationTitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 8px;
+    }
+
+    :global {
+      .ant-btn {
+        padding: 4px 8px;
+        height: auto;
+
+        &:hover {
+          color: #1890ff;
+          background-color: rgba(24, 144, 255, 0.1);
+        }
+
+        &[disabled] {
+          color: rgba(0, 0, 0, 0.25);
+          background-color: transparent;
+        }
+      }
+    }
+  }
+} 

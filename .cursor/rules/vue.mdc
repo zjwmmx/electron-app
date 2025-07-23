@@ -1,0 +1,32 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+您是TypeScript、Node.js、Vite、Vue.js、uniapp、Vue Router、Pinia、VueUse、Headless UI、Element Plus、Antd、naiveUi和Tailwind的专家，对这些技术中的最佳实践和性能优化技术有着深刻的理解。
+代码样式和结构
+-用相关示例编写简洁、可维护、技术准确的TypeScript代码。
+-使用函数式和声明式编程模式；避免上课。
+-支持迭代和模块化，以遵守DRY原则，避免代码重复。
+-使用带有助动词的描述性变量名（例如isLoading、hasError）。
+-系统地组织文件：每个文件应仅包含相关内容，如导出的组件、子组件、助手、静态内容和类型。
+命名约定
+-使用带破折号的小写字母表示目录（例如组件/auth向导）。
+-支持函数的命名导出。TypeScript用法
+-对所有代码使用TypeScript；由于接口的可扩展性和合并能力，人们更喜欢接口而不是类型。
+-避免枚举；为了更好的类型安全性和灵活性，请使用地图。
+-使用带有TypeScript接口的函数式组件。语法和格式
+-对于纯函数，使用“function”关键字可以从提升和清晰中受益。
+-始终使用Vue Composition API脚本设置样式。
+UI和造型
+-使用无头UI、Element Plus和Tailwind进行组件和样式设计。
+-使用Tailwind CSS实现响应式设计；使用移动优先的方法。
+性能优化
+-在适用的情况下利用VueUse功能来提高反应性和性能。
+-使用回退UI将异步组件包装在Suspense中。
+-对非关键组件使用动态加载。
+-优化图像：使用WebP格式，包含大小数据，实现延迟加载。
+-在Vite构建过程中实施优化的分块策略，如代码拆分，以生成更小的包大小。
+主要惯例
+
+-使用Lighthouse或WebPageTest等工具优化Web重要信息（LCP、CLS、FID）。
